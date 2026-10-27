@@ -12,11 +12,9 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from flask_migrate import Migrate
-<<<<<<< HEAD
 from models.book import Book
-=======
->>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
 from db import db
+from flask import Flask, jsonify, request
 
 load_dotenv()
 
@@ -26,4 +24,75 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-print(os.getenv("DATABASE_URL"))
+
+@app.route("/hello", methods=["GET"])
+def hello():
+    return "API está funcionando!"
+
+@app.route("/books", methods=["POST"])
+def add_book():
+    data = request.get_json()
+
+    book = Book(
+        title=data["title"],
+        author=data["author"],
+        description=data["description"]
+    )
+
+    db.session.add(book)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Livro inserido com sucesso"
+    }), 201
+
+@app.route("/books", methods=["GET"])
+def get_all_books():
+    books = Book.query.all()
+
+    return jsonify([
+        book.as_dict()
+        for book in books
+    ])
+
+
+
+@app.route("/books/<uuid:book_id>", methods=["GET"])
+def get_book(book_id):
+    book = Book.query.get_or_404(book_id)
+
+    return jsonify(book.as_dict())
+
+@app.route("/books/<uuid:book_id>", methods=["PATCH"])
+def update_book(book_id):
+    book = Book.query.get_or_404(book_id)
+
+    data = request.get_json()
+
+    for key, value in data.items():
+        setattr(book, key, value)
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "Livro atualizado com sucesso"
+    })
+
+@app.route("/books/<uuid:book_id>", methods=["DELETE"])
+def delete_book(book_id):
+    book = Book.query.get_or_404(book_id)
+
+    db.session.delete(book)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Livro removido com sucesso"
+    })
+
+
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=5001,
+        debug=True
+    )

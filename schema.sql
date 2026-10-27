@@ -1,1 +1,3 @@
 -- Active: 1792799975089@@pg-3a064411-estudante-cf5c.k.aivencloud.com@11758@defaultdb
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

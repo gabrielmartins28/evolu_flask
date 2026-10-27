@@ -3,68 +3,53 @@
 
 from uuid import uuid4
 
-from sqlalchemy import String, text
-<<<<<<< HEAD
+from sqlalchemy import String, Text
 from sqlalchemy.dialects.postgresql import UUID
-=======
-from sqlalchemy.dialects.postgresql import uuid
->>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
 
 from db import db
 
+
 class Book(db.Model):
-#indicar que book é um modelo gerenciado pelo sqlalchemy
     __tablename__ = "book"
-    #define o nome da tabela 
-<<<<<<< HEAD
+
     id = db.Column(
-=======
-    id = db.column(
->>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
-        UUID(as_uuid = True), # Vou usar o UUID
-        primary_key = True, #Chave primaria
-        default = uuid4 #Quando criar um novo livro, um UUID será criado 
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid4
     )
 
     title = db.Column(
-        String(255), #Recebe a string 
-        nullable = False #Não aceita nulo 
+        String(255),
+        nullable=False
     )
+
     author = db.Column(
         String(255),
         nullable=False
     )
-    #Title e author são obrigatórios
-    description = db.Column(
-<<<<<<< HEAD
-        text, #Textos maiores
-=======
-        Text, #Textos maiores
->>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
-        nullable = False
 
+    description = db.Column(
+        Text,
+        nullable=False
     )
 
-    is_favorite = db.column(
+    is_favorite = db.Column(
         db.Boolean,
-        nullable = False,
-        default = False
-
+        nullable=False,
+        default=False
     )
 
     is_reading = db.Column(
-        db.boolean,
-        nullable = False,
-        default = False
-
+        db.Boolean,
+        nullable=False,
+        default=False
     )
 
     is_finished = db.Column(
-        db.boolean,
-        nullable = False,
-        default = False
-    
-        )
+        db.Boolean,
+        nullable=False,
+        default=False
+    )
 
     #Transformando o modelo em dicionario
 
