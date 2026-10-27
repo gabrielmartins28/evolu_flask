@@ -4,7 +4,11 @@
 from uuid import uuid4
 
 from sqlalchemy import String, text
+<<<<<<< HEAD
 from sqlalchemy.dialects.postgresql import UUID
+=======
+from sqlalchemy.dialects.postgresql import uuid
+>>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
 
 from db import db
 
@@ -12,7 +16,11 @@ class Book(db.Model):
 #indicar que book é um modelo gerenciado pelo sqlalchemy
     __tablename__ = "book"
     #define o nome da tabela 
+<<<<<<< HEAD
     id = db.Column(
+=======
+    id = db.column(
+>>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
         UUID(as_uuid = True), # Vou usar o UUID
         primary_key = True, #Chave primaria
         default = uuid4 #Quando criar um novo livro, um UUID será criado 
@@ -28,7 +36,11 @@ class Book(db.Model):
     )
     #Title e author são obrigatórios
     description = db.Column(
+<<<<<<< HEAD
         text, #Textos maiores
+=======
+        Text, #Textos maiores
+>>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
         nullable = False
 
     )

@@ -12,7 +12,10 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from flask_migrate import Migrate
+<<<<<<< HEAD
 from models.book import Book
+=======
+>>>>>>> 4692af630a35c5fa9ddda70b342d1a9c164e614e
 from db import db
 
 load_dotenv()
